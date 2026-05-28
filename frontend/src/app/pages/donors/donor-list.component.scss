@@ -1,0 +1,213 @@
+// ── Table card ───────────────────────────────────────────────────────────────
+.donors-card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  overflow: hidden;
+}
+
+// ── Donor cell ───────────────────────────────────────────────────────────────
+.donor-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.donor-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--redDark));
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.donor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.donor-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.donor-email {
+  font-size: 12px;
+  color: var(--textMuted);
+}
+
+.blood-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 10px;
+  background: var(--redLight);
+  color: var(--red);
+  border-radius: var(--radiusFull);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.date-val {
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.no-record {
+  color: var(--textLight);
+  font-size: 16px;
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+// ── Profile card ─────────────────────────────────────────────────────────────
+.profile-card {
+  background: var(--bg);
+  border-radius: var(--radiusLg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  max-width: 640px;
+  overflow: hidden;
+}
+
+.profile-card__hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 28px 24px;
+  background: linear-gradient(135deg, rgba(225, 29, 46, 0.03), rgba(225, 29, 46, 0.06));
+}
+
+.profile-avatar-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--redDark));
+  color: white;
+  font-size: 24px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadowRedSm);
+}
+
+.profile-hero-info {
+  h2 {
+    margin: 0 0 3px;
+    font-size: 20px;
+    font-weight: 750;
+    color: var(--text);
+  }
+
+  p {
+    margin: 0 0 10px;
+    font-size: 13.5px;
+    color: var(--textMuted);
+  }
+}
+
+.donor-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: var(--successLight);
+  color: var(--success);
+  border-radius: var(--radiusFull);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+
+  &::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+.profile-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+
+  &:nth-child(even) {
+    border-right: none;
+  }
+
+  &:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  @media (max-width: 520px) {
+    border-right: none;
+    &:last-child { border-bottom: none; }
+  }
+}
+
+.detail-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--textMuted);
+}
+
+.detail-value {
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--text);
+
+  &--blood {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--red);
+  }
+}
+
+.no-profile-card {
+  background: var(--bg);
+  border-radius: var(--radiusLg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  max-width: 560px;
+}

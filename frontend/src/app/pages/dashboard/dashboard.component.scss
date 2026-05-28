@@ -1,0 +1,127 @@
+.stat-of {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--textMuted);
+}
+
+.stat-grid--2 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  max-width: 560px;
+}
+
+// ── Dashboard card ──────────────────────────────────────────────────────────
+.dash-card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  overflow: hidden;
+  margin-bottom: 24px;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 24px 18px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+
+    @media (max-width: 540px) {
+      flex-direction: column;
+    }
+
+    h2 {
+      margin: 0 0 3px;
+      font-size: 16px;
+      font-weight: 680;
+      color: var(--text);
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--textMuted);
+    }
+  }
+}
+
+// ── Table cells ─────────────────────────────────────────────────────────────
+.blood-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--redLight);
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.units-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.units-label {
+  font-size: 12px;
+  color: var(--textMuted);
+  margin-left: 4px;
+}
+
+// ── Quick actions ────────────────────────────────────────────────────────────
+.dash-quick-actions {
+  h3 {
+    margin: 0 0 16px;
+    font-size: 15px;
+    font-weight: 680;
+    color: var(--text);
+  }
+}
+
+.quick-actions-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.quick-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radiusMd);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  transition: box-shadow var(--transSlow), transform var(--transSlow), border-color 200ms ease;
+  cursor: pointer;
+  min-width: 100px;
+
+  &:hover {
+    box-shadow: var(--shadowMd);
+    transform: translateY(-2px);
+    border-color: var(--borderMd);
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      font-size: 22px;
+      width: 22px;
+      height: 22px;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.donations-card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  overflow: hidden;
+}
+
+.donor-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.donor-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--redDark));
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.donor-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.blood-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 10px;
+  background: var(--redLight);
+  color: var(--red);
+  border-radius: var(--radiusFull);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.units-cell {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.units-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  color: var(--red);
+  opacity: 0.7;
+}
+
+.units-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.units-label {
+  font-size: 12px;
+  color: var(--textMuted);
+}
+
+.date-val {
+  font-size: 13px;
+  color: var(--textMuted);
+}

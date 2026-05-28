@@ -1,0 +1,63 @@
+<div class="ll-container ll-anim-enter">
+
+  <div class="ll-page-header">
+    <div class="ll-page-header__text">
+      <h1>Donation History</h1>
+      <p>{{ isAdmin() ? 'Log and track all blood donations.' : 'Your personal donation records.' }}</p>
+    </div>
+    <button class="ll-btn-primary" *ngIf="isAdmin()" (click)="openAddDialog()">
+      <mat-icon>favorite</mat-icon>
+      Log Donation
+    </button>
+  </div>
+
+  <div class="donations-card">
+    <div class="ll-table-wrap">
+      <table mat-table [dataSource]="donations" class="w-full">
+
+        <ng-container matColumnDef="donorName">
+          <th mat-header-cell *matHeaderCellDef>Donor</th>
+          <td mat-cell *matCellDef="let el">
+            <div class="donor-cell">
+              <div class="donor-avatar">{{ el.donor.user.name.charAt(0).toUpperCase() }}</div>
+              <span class="donor-name">{{ el.donor.user.name }}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bloodGroup">
+          <th mat-header-cell *matHeaderCellDef>Blood Group</th>
+          <td mat-cell *matCellDef="let el">
+            <span class="blood-pill">{{ el.donor.bloodGroup.replace('_POS', '+').replace('_NEG', '-') }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unitsDonated">
+          <th mat-header-cell *matHeaderCellDef>Units Donated</th>
+          <td mat-cell *matCellDef="let el">
+            <div class="units-cell">
+              <mat-icon class="units-icon">water_drop</mat-icon>
+              <span class="units-val">{{ el.unitsDonated }}</span>
+              <span class="units-label">units</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="donationDate">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let el" class="date-val">{{ el.donationDate | date:'mediumDate' }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <div *ngIf="donations.length === 0" class="ll-empty-state">
+      <div class="ll-empty-state__icon"><mat-icon>favorite_border</mat-icon></div>
+      <h3>No donations yet</h3>
+      <p>{{ isAdmin() ? 'Use "Log Donation" to record a blood donation.' : 'Your donation records will appear here once logged.' }}</p>
+    </div>
+  </div>
+
+</div>

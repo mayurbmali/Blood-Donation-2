@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import 'styles/tokens';
+@import 'styles/utilities';
+
+// ─── Base ────────────────────────────────────────────────────────────────────
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bgSoft);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', 'Inter', system-ui, sans-serif;
+}
+
+// ─── Legacy compat vars ───────────────────────────────────────────────────────
+:root {
+  --primary: #E11D2E;
+  --primary-light: #FEE2E2;
+  --dark: #0F172A;
+  --gray: #64748B;
+  --light: #F8FAFC;
+  --success: #059669;
+  --warning: #D97706;
+}
+
+// ─── Angular Material — Form fields ──────────────────────────────────────────
+.mat-primary {
+  --mdc-filled-button-container-color: #E11D2E;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--red) !important;
+  color: white !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--red) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--red) !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: var(--bg) !important;
+  transition: background-color 150ms ease !important;
+}
+
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
+  border-color: var(--borderMd) !important;
+  transition: border-color 150ms ease !important;
+}
+
+.mat-mdc-form-field-input-control,
+.mat-mdc-input-element {
+  color: var(--text) !important;
+  caret-color: var(--red) !important;
+}
+
+// Placeholder text — light mode
+input::placeholder,
+textarea::placeholder {
+  color: var(--textLight) !important;
+  opacity: 1 !important;
+}
+
+// Labels + icons
+.mat-mdc-floating-label,
+.mdc-floating-label {
+  color: var(--textMuted) !important;
+  transition: color 150ms ease !important;
+}
+
+.mat-mdc-select-value-text,
+.mat-mdc-select-arrow {
+  color: var(--text) !important;
+}
+
+// Prefix/suffix icons inside form fields
+.mat-mdc-form-field-icon-prefix mat-icon,
+.mat-mdc-form-field-icon-suffix mat-icon,
+.mat-mdc-form-field .mat-icon {
+  color: var(--textMuted) !important;
+}
+
+.mat-mdc-option {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+
+  &:hover, &.mat-mdc-option-active {
+    background-color: var(--bgSubtle) !important;
+  }
+}
+
+.mat-mdc-autocomplete-panel,
+.mat-mdc-select-panel {
+  background-color: var(--bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radiusMd) !important;
+  box-shadow: var(--shadowLg) !important;
+}
+
+// ─── Dark mode — Material overrides ──────────────────────────────────────────
+[data-theme="dark"] {
+
+  // Form field backgrounds & outlines
+  .mat-mdc-text-field-wrapper {
+    background-color: var(--bgSoft) !important;
+  }
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: var(--borderMd) !important;
+  }
+
+  // Placeholder text — MUST be light in dark mode
+  input::placeholder,
+  textarea::placeholder {
+    color: #475569 !important;
+    opacity: 1 !important;
+  }
+
+  // Filled/active input text
+  .mat-mdc-form-field-input-control,
+  .mat-mdc-input-element,
+  input.mat-mdc-input-element {
+    color: var(--text) !important;
+  }
+
+  // Labels
+  .mat-mdc-floating-label,
+  .mdc-floating-label {
+    color: var(--textMuted) !important;
+  }
+
+  // Prefix/suffix icons
+  .mat-mdc-form-field-icon-prefix mat-icon,
+  .mat-mdc-form-field-icon-suffix mat-icon,
+  .mat-mdc-form-field .mat-icon,
+  .mdc-text-field__icon {
+    color: var(--textMuted) !important;
+  }
+
+  // Icon buttons inside fields (password toggle etc.)
+  .mat-mdc-icon-button mat-icon {
+    color: var(--textMuted) !important;
+  }
+
+  // Cards
+  .mat-mdc-card {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
+  }
+
+  // Table rows
+  .mat-mdc-header-row {
+    background: var(--bgSoft) !important;
+  }
+
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background: rgba(241, 245, 249, 0.04) !important;
+  }
+
+  // Dialog
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+  }
+
+  .mdc-dialog__title,
+  .mat-mdc-dialog-title {
+    color: var(--text) !important;
+  }
+
+  .mdc-dialog__content,
+  .mat-mdc-dialog-content {
+    color: var(--textMuted) !important;
+  }
+
+  // Select panel
+  .mat-mdc-select-value-text { color: var(--text) !important; }
+  .mat-mdc-select-arrow { color: var(--textMuted) !important; }
+
+  .mat-mdc-option {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    &:hover, &.mdc-list-item--selected { background-color: var(--bgSubtle) !important; }
+  }
+
+  .mat-mdc-autocomplete-panel,
+  .mat-mdc-select-panel {
+    background-color: var(--bg) !important;
+    border: 1px solid var(--border) !important;
+  }
+}
+
+// ─── Angular Material — Card ──────────────────────────────────────────────────
+.mat-mdc-card {
+  border-radius: var(--radiusMd) !important;
+  box-shadow: var(--shadowMd) !important;
+  border: 1px solid var(--border) !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  transition: background-color 150ms ease, border-color 150ms ease !important;
+}
+
+// ─── Angular Material — Table ─────────────────────────────────────────────────
+.mat-mdc-table {
+  background: transparent !important;
+  box-shadow: none !important;
+  width: 100%;
+}
+
+.mat-mdc-header-row {
+  background: var(--bgSoft) !important;
+  transition: background-color 150ms ease !important;
+}
+
+.mat-mdc-header-cell {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--textMuted) !important;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--border) !important;
+  transition: border-color 150ms ease !important;
+}
+
+.mat-mdc-cell {
+  font-size: 13.5px !important;
+  color: var(--text) !important;
+  padding: 14px 16px !important;
+  border-bottom: 1px solid var(--border) !important;
+  transition: background-color 120ms ease, border-color 150ms ease !important;
+}
+
+.mat-mdc-row {
+  transition: background 120ms ease;
+
+  &:hover .mat-mdc-cell {
+    background: var(--bgSoft) !important;
+  }
+
+  &:last-child .mat-mdc-cell {
+    border-bottom: none !important;
+  }
+}
+
+.mdc-data-table__row:last-child .mdc-data-table__cell {
+  border-bottom: none !important;
+}
+
+// ─── Snackbar + Dialog ────────────────────────────────────────────────────────
+.mat-mdc-snack-bar-container {
+  border-radius: var(--radiusSm) !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: var(--radiusLg) !important;
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+.mdc-dialog__title,
+.mat-mdc-dialog-title {
+  color: var(--text) !important;
+}
+
+.mdc-dialog__content,
+.mat-mdc-dialog-content {
+  color: var(--textMuted) !important;
+}
+
+// ─── Icon button ──────────────────────────────────────────────────────────────
+.mat-mdc-icon-button {
+  color: var(--textMuted) !important;
+}
+
+// ─── Toolbar ──────────────────────────────────────────────────────────────────
+mat-toolbar {
+  background-color: var(--red) !important;
+  color: white !important;
+}
+
+// ─── Status chips ─────────────────────────────────────────────────────────────
+.chip-pending  { background: var(--warningLight) !important; color: var(--warning) !important; }
+.chip-approved, .chip-ok { background: var(--successLight) !important; color: var(--success) !important; }
+.chip-rejected, .chip-critical { background: var(--dangerLight) !important; color: var(--danger) !important; }
+.chip-low { background: var(--warningLight) !important; color: var(--warning) !important; }
+
+// ─── Layout helpers ───────────────────────────────────────────────────────────
+.container    { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+.flex-row     { display: flex; flex-direction: row; gap: 16px; }
+.flex-col     { display: flex; flex-direction: column; gap: 16px; }
+.w-full       { width: 100%; }
+.align-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.text-primary { color: var(--red); }
+.text-muted   { color: var(--textMuted); }
+.grid-cols-4  { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.grid-cols-2  { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+.card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  padding: 24px;
+  box-shadow: var(--shadowMd);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.stat-card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  padding: 24px;
+  box-shadow: var(--shadowMd);
+  border: 1px solid var(--border);
+  transition: background-color 150ms ease;
+}

@@ -1,0 +1,475 @@
+<!-- ============================================================
+     STICKY NAVBAR
+============================================================ -->
+<nav class="ll-nav" [class.scrolled]="navScrolled">
+  <div class="ll-nav__inner">
+    <a class="ll-nav__logo" (click)="scrollTo('Home')">
+      <svg class="ll-nav__drop" viewBox="0 0 32 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2C16 2 2 18.5 2 27C2 34.3 8.3 40 16 40C23.7 40 30 34.3 30 27C30 18.5 16 2 16 2Z" fill="var(--red)"/>
+        <path d="M16 14C16 14 8 23.5 8 28C8 32 11.6 35 16 35C20.4 35 24 32 24 28C24 23.5 16 14 16 14Z" fill="rgba(255,255,255,0.25)"/>
+      </svg>
+      <div class="ll-nav__logo-text">
+        <span class="ll-nav__logo-name">LifeLink</span>
+        <span class="ll-nav__logo-sub">Blood Donation System</span>
+      </div>
+    </a>
+
+    <ul class="ll-nav__links" [class.open]="mobileMenuOpen">
+      <li><a class="ll-nav__link--active" (click)="scrollTo('Home')">Home</a></li>
+      <li><a>About</a></li>
+      <li><a (click)="scrollTo('Features')">Features</a></li>
+      <li><a>Donors</a></li>
+      <li><a>Hospitals</a></li>
+      <li><a>Reports</a></li>
+      <li><a (click)="scrollTo('Contact')">Contact</a></li>
+    </ul>
+
+    <div class="ll-nav__right">
+      <app-theme-toggle></app-theme-toggle>
+      <a routerLink="/login" class="ll-btn ll-btn--ghost">Sign In</a>
+      <a routerLink="/register" class="ll-btn ll-btn--primary">Get Started &nbsp;→</a>
+      <button class="ll-nav__menu-icon" (click)="mobileMenuOpen = !mobileMenuOpen">&#9776;</button>
+    </div>
+
+    <button class="ll-nav__burger" (click)="mobileMenuOpen = !mobileMenuOpen" [class.active]="mobileMenuOpen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="ll-hero" id="hero">
+
+  <div class="ll-hero__content">
+    <!-- LEFT — text -->
+    <div class="ll-hero__text">
+      <div class="ll-badge">
+        <span class="ll-badge__heart">♥</span>
+        Every Drop Counts
+      </div>
+
+      <h1 class="ll-hero__headline">
+        Donate Blood.<br>
+        <span class="ll-hero__headline--red">Save Lives.</span>
+      </h1>
+
+      <p class="ll-hero__sub">
+        LifeLink is a smart Blood Donation Management System that connects donors, hospitals, and organizations to save lives efficiently and effortlessly.
+      </p>
+
+      <div class="ll-hero__ctas">
+        <a routerLink="/register" class="ll-btn ll-btn--primary ll-btn--lg">
+          I Want to Donate &nbsp;→
+        </a>
+        <a routerLink="/register" class="ll-btn ll-btn--outline-red ll-btn--lg">
+          Request Blood
+          <svg viewBox="0 0 24 24" fill="var(--red)" stroke="none" width="18" height="18"><path d="M12 2C12 2 4 10.5 4 15C4 19.4 7.6 23 12 23C16.4 23 20 19.4 20 15C20 10.5 12 2 12 2Z"/></svg>
+        </a>
+      </div>
+
+      <p class="ll-hero__microcopy">Takes 30 seconds &nbsp;•&nbsp; Verified donors &nbsp;•&nbsp; Privacy-safe</p>
+
+      <!-- Social Proof -->
+      <div class="ll-social-proof">
+        <div class="ll-avatars">
+          <div class="ll-avatar ll-avatar--1">👤</div>
+          <div class="ll-avatar ll-avatar--2">👤</div>
+          <div class="ll-avatar ll-avatar--3">👤</div>
+          <div class="ll-avatar ll-avatar--plus">+</div>
+        </div>
+        <div class="ll-social-proof__text">
+          <strong>Join <span class="ll-red">25,000+</span> heroes</strong>
+          <span>who are saving lives</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — visual -->
+    <div class="ll-hero__visual">
+
+      <!-- Decorative dashed rings -->
+      <div class="ll-deco-ring ll-deco-ring--1"></div>
+      <div class="ll-deco-ring ll-deco-ring--2"></div>
+
+      <!-- Floating feature cards -->
+      <div class="ll-float-card" style="top:4%;left:50%;transform:translateX(-50%)">
+        <div class="ll-float-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        Donors
+      </div>
+
+      <div class="ll-float-card" style="top:36%;left:-2%">
+        <div class="ll-float-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2C12 2 4 10.5 4 15C4 19.4 7.6 23 12 23C16.4 23 20 19.4 20 15C20 10.5 12 2 12 2Z"/></svg>
+        </div>
+        Blood Banks
+      </div>
+
+      <div class="ll-float-card" style="bottom:22%;left:4%">
+        <div class="ll-float-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        Notifications
+      </div>
+
+      <div class="ll-float-card" style="top:10%;right:-1%">
+        <div class="ll-float-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        Hospitals
+      </div>
+
+      <div class="ll-float-card" style="bottom:26%;right:0%">
+        <div class="ll-float-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        Reports
+      </div>
+
+      <!-- Central blood drop with ECG line -->
+      <div class="ll-hero__drop">
+        <svg viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dropGrad2" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stop-color="#F04060"/>
+              <stop offset="100%" stop-color="#CC0A1A"/>
+            </linearGradient>
+            <clipPath id="dropClip">
+              <path d="M80 8C80 8 10 90 10 138C10 174 41.3 200 80 200C118.7 200 150 174 150 138C150 90 80 8 80 8Z"/>
+            </clipPath>
+          </defs>
+          <!-- Drop shape -->
+          <path d="M80 8C80 8 10 90 10 138C10 174 41.3 200 80 200C118.7 200 150 174 150 138C150 90 80 8 80 8Z" fill="url(#dropGrad2)"/>
+          <!-- Inner highlight -->
+          <path d="M80 55C80 55 42 102 42 133C42 153 59 168 80 168C101 168 118 153 118 133C118 102 80 55 80 55Z" fill="rgba(255,255,255,0.12)"/>
+          <!-- ECG / heartbeat line clipped to drop -->
+          <g clip-path="url(#dropClip)">
+            <polyline points="18,128 44,128 54,104 64,150 74,86 84,158 94,128 142,128" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+          </g>
+        </svg>
+
+        <!-- Shield badge -->
+        <div class="ll-hero__shield">
+          <svg viewBox="0 0 48 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 2L4 11v14c0 11.5 8.5 22.2 20 24.9C35.5 47.2 44 36.5 44 25V11L24 2z" fill="#E11D2E"/>
+            <path d="M17 27h14M24 20v14" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="ll-hero__drop-glow"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ll-hero__scroll-hint">
+    <div class="ll-scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS STRIP — white floating card
+============================================================ -->
+<section class="ll-stats" id="stats">
+  <div class="ll-stats__inner">
+
+    <div class="ll-stat-card">
+      <div class="ll-stat-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2C12 2 4 10.5 4 15C4 19.4 7.6 23 12 23C16.4 23 20 19.4 20 15C20 10.5 12 2 12 2Z" stroke="var(--red)" fill="none"/></svg>
+      </div>
+      <div>
+        <div class="ll-stat-card__num">25,000+</div>
+        <div class="ll-stat-card__label">Donors Registered</div>
+      </div>
+    </div>
+
+    <div class="ll-stat-card">
+      <div class="ll-stat-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M6 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2M9 12h6M12 9v6"/></svg>
+      </div>
+      <div>
+        <div class="ll-stat-card__num">18,500+</div>
+        <div class="ll-stat-card__label">Units Donated</div>
+      </div>
+    </div>
+
+    <div class="ll-stat-card">
+      <div class="ll-stat-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z"/></svg>
+      </div>
+      <div>
+        <div class="ll-stat-card__num">12,000+</div>
+        <div class="ll-stat-card__label">Lives Saved</div>
+      </div>
+    </div>
+
+    <div class="ll-stat-card">
+      <div class="ll-stat-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+      </div>
+      <div>
+        <div class="ll-stat-card__num">850+</div>
+        <div class="ll-stat-card__label">Hospitals Connected</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     PARTNER STRIP
+============================================================ -->
+<div class="ll-partner-strip" appReveal>
+  <div class="ll-container">
+    <p class="ll-partner-strip__label">Trusted by leading healthcare organizations worldwide</p>
+    <div class="ll-partner-strip__logos">
+      <div class="ll-partner-logo" *ngFor="let p of partners">{{ p.abbr }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TRUST STRIP
+============================================================ -->
+<section class="ll-trust-strip" appReveal>
+  <div class="ll-container">
+    <div class="ll-trust-strip__grid">
+      <div class="ll-trust-item" *ngFor="let t of trustItems; let i = index" [style.animation-delay]="(i * 80) + 'ms'">
+        <div class="ll-trust-item__icon">
+          <svg *ngIf="t.icon === 'verified_user'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          <svg *ngIf="t.icon === 'lock'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <svg *ngIf="t.icon === 'admin_panel_settings'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M18 14l2 2 4-4" stroke-width="2.5"/></svg>
+          <svg *ngIf="t.icon === 'receipt_long'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 12h6M9 16h4"/></svg>
+        </div>
+        <div class="ll-trust-item__body">
+          <strong>{{ t.title }}</strong>
+          <span>{{ t.desc }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FEATURES
+============================================================ -->
+<section class="ll-section ll-features" id="features">
+  <div class="ll-container">
+    <div class="ll-section__head" appReveal>
+      <p class="ll-eyebrow-plain">SMART. SIMPLE. IMPACTFUL.</p>
+      <h2 class="ll-section__title">Everything You Need to <span style="color:var(--red)">Save Lives</span></h2>
+      <p class="ll-section__sub">One unified platform purpose-built for blood banks, hospitals, and donors.</p>
+    </div>
+
+    <div class="ll-features__grid">
+      <div class="ll-feature-card" *ngFor="let f of features; let i = index" appReveal [revealDelay]="i * 100">
+        <div class="ll-feature-card__icon">
+          <svg *ngIf="f.icon==='donor'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <svg *ngIf="f.icon==='blood'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C12 2 4 10.5 4 15C4 19.4 7.6 23 12 23C16.4 23 20 19.4 20 15C20 10.5 12 2 12 2Z"/></svg>
+          <svg *ngIf="f.icon==='request'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12h6M12 9v6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          <svg *ngIf="f.icon==='alert'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <svg *ngIf="f.icon==='chart'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <h3 class="ll-feature-card__title">{{ f.title }}</h3>
+        <p class="ll-feature-card__desc">{{ f.desc }}</p>
+        <a class="ll-feature-card__link">Learn more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section class="ll-section ll-how" id="how">
+  <div class="ll-container">
+    <div class="ll-section__head" appReveal>
+      <div class="ll-eyebrow">The Process</div>
+      <h2 class="ll-section__title">From registration to saving lives in 4 steps</h2>
+    </div>
+
+    <div class="ll-how__steps">
+      <div class="ll-step" *ngFor="let s of steps; let i = index" appReveal [revealDelay]="i * 150">
+        <div class="ll-step__num">{{ i + 1 }}</div>
+        <div class="ll-step__icon">
+          <svg *ngIf="s.icon==='register'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M12.5 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM20 8v6M23 11h-6"/></svg>
+          <svg *ngIf="s.icon==='donate'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C12 2 4 10.5 4 15C4 19.4 7.6 23 12 23C16.4 23 20 19.4 20 15C20 10.5 12 2 12 2Z"/></svg>
+          <svg *ngIf="s.icon==='match'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+          <svg *ngIf="s.icon==='save'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z"/></svg>
+        </div>
+        <div class="ll-step__body">
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ROLES
+============================================================ -->
+<section class="ll-section ll-roles" id="roles">
+  <div class="ll-container">
+    <div class="ll-section__head" appReveal>
+      <div class="ll-eyebrow">Built for Everyone</div>
+      <h2 class="ll-section__title">One platform, three powerful roles</h2>
+    </div>
+
+    <div class="ll-roles__grid">
+      <div class="ll-role-card" *ngFor="let r of roles; let i = index" appReveal [revealDelay]="i * 120" [style.--role-color]="r.color">
+        <div class="ll-role-card__header">
+          <div class="ll-role-card__avatar">
+            <svg *ngIf="r.icon==='donor-role'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.318 6.318a4.5 4.5 0 0 0 0 6.364L12 20.364l7.682-7.682a4.5 4.5 0 0 0-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 0 0-6.364 0z"/></svg>
+            <svg *ngIf="r.icon==='admin-role'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg *ngIf="r.icon==='hospital-role'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+          </div>
+          <div class="ll-role-card__name">{{ r.name }}</div>
+        </div>
+        <ul class="ll-role-card__list">
+          <li *ngFor="let item of r.items">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8l3.5 3.5L13 5"/></svg>
+            {{ item }}
+          </li>
+        </ul>
+        <a [routerLink]="r.link" class="ll-btn ll-btn--role">{{ r.cta }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+============================================================ -->
+<section class="ll-section ll-testimonials" id="testimonials">
+  <div class="ll-container">
+    <div class="ll-section__head" appReveal>
+      <div class="ll-eyebrow">Trusted by Thousands</div>
+      <h2 class="ll-section__title">Voices that make every drop count</h2>
+    </div>
+
+    <div class="ll-testimonials__carousel" (mouseenter)="pauseCarousel()" (mouseleave)="resumeCarousel()">
+      <div class="ll-testimonials__track">
+        <div class="ll-tcard" *ngFor="let t of testimonials; let i = index" [class.active]="i === activeTestimonial">
+          <div class="ll-tcard__stars">
+            <svg *ngFor="let s of stars(t.rating)" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/></svg>
+          </div>
+          <blockquote class="ll-tcard__quote">"{{ t.quote }}"</blockquote>
+          <div class="ll-tcard__author">
+            <div class="ll-tcard__avatar">{{ t.avatar }}</div>
+            <div>
+              <div class="ll-tcard__name">{{ t.name }}</div>
+              <div class="ll-tcard__role">{{ t.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ll-testimonials__dots">
+        <button *ngFor="let t of testimonials; let i = index"
+          class="ll-dot" [class.active]="i === activeTestimonial"
+          (click)="goToTestimonial(i)"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+============================================================ -->
+<section class="ll-section ll-faq" id="faq">
+  <div class="ll-container ll-faq__inner">
+    <div class="ll-section__head" appReveal>
+      <div class="ll-eyebrow">Common Questions</div>
+      <h2 class="ll-section__title">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="ll-faq__list">
+      <div class="ll-faq__item" *ngFor="let f of faqs; let i = index" appReveal [revealDelay]="i * 80" [class.open]="f.open">
+        <button class="ll-faq__q" (click)="toggleFaq(f)">
+          <span>{{ f.q }}</span>
+          <svg class="ll-faq__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="ll-faq__a">
+          <p>{{ f.a }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+============================================================ -->
+<section class="ll-cta-banner" appReveal>
+  <div class="ll-cta-banner__bg"></div>
+  <div class="ll-cta-banner__content">
+    <div class="ll-cta-banner__eyebrow">Join LifeLink Today</div>
+    <h2 class="ll-cta-banner__title">Ready to Save Lives?</h2>
+    <p class="ll-cta-banner__sub">Thousands of donors and hospitals already trust LifeLink. Be part of something that matters.</p>
+    <a routerLink="/register" class="ll-btn ll-btn--white ll-btn--lg">
+      Get Started Now
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.586 11H3a1 1 0 1 1 0-2h11.586l-4.293-4.293a1 1 0 0 1 0-1.414z" clip-rule="evenodd"/></svg>
+    </a>
+    <p class="ll-cta-banner__microcopy">Free to join &nbsp;•&nbsp; No credit card required &nbsp;•&nbsp; Privacy-safe</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="ll-footer" id="footer">
+  <div class="ll-footer__inner">
+    <div class="ll-footer__brand">
+      <a class="ll-nav__logo" style="margin-bottom:12px">
+        <svg class="ll-nav__drop" viewBox="0 0 32 40" fill="none"><path d="M16 2C16 2 2 18.5 2 27C2 34.3 8.3 40 16 40C23.7 40 30 34.3 30 27C30 18.5 16 2 16 2Z" fill="var(--red)"/></svg>
+        <span>LifeLink</span>
+      </a>
+      <p>Connecting donors, hospitals, and organizations to save lives every day.</p>
+      <div class="ll-footer__socials">
+        <a class="ll-social" title="Twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0 0 22 5.92a8.19 8.19 0 0 1-2.357.646 4.118 4.118 0 0 0 1.804-2.27 8.224 8.224 0 0 1-2.605.996 4.107 4.107 0 0 0-6.993 3.743 11.65 11.65 0 0 1-8.457-4.287 4.106 4.106 0 0 0 1.27 5.477A4.073 4.073 0 0 1 2.8 9.713v.052a4.105 4.105 0 0 0 3.292 4.022 4.095 4.095 0 0 1-1.853.07 4.108 4.108 0 0 0 3.834 2.85A8.233 8.233 0 0 1 2 18.407a11.615 11.615 0 0 0 6.29 1.84"/></svg>
+        </a>
+        <a class="ll-social" title="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+        </a>
+        <a class="ll-social" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="ll-footer__col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a (click)="scrollTo('Features')">Features</a></li>
+        <li><a (click)="scrollTo('How It Works')">How It Works</a></li>
+        <li><a (click)="scrollTo('Roles')">For Donors</a></li>
+        <li><a (click)="scrollTo('Roles')">For Hospitals</a></li>
+      </ul>
+    </div>
+
+    <div class="ll-footer__col">
+      <h4>Account</h4>
+      <ul>
+        <li><a routerLink="/login">Sign In</a></li>
+        <li><a routerLink="/register">Register</a></li>
+        <li><a routerLink="/dashboard">Dashboard</a></li>
+      </ul>
+    </div>
+
+    <div class="ll-footer__col ll-footer__newsletter">
+      <h4>Stay Updated</h4>
+      <p>Get alerts on blood shortages and donation drives in your area.</p>
+      <form class="ll-newsletter" (submit)="$event.preventDefault()">
+        <input type="email" placeholder="your@email.com" class="ll-newsletter__input">
+        <button type="submit" class="ll-btn ll-btn--primary ll-btn--sm">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="ll-footer__bottom">
+    <p>&copy; 2026 LifeLink. Built with care to save lives. All rights reserved.</p>
+  </div>
+</footer>

@@ -1,0 +1,163 @@
+<div class="ll-container ll-anim-enter">
+
+  <!-- Page Header -->
+  <div class="ll-page-header">
+    <div class="ll-page-header__text">
+      <h1>Dashboard</h1>
+      <p>Welcome back — here's your system overview.</p>
+    </div>
+  </div>
+
+  <!-- ── ADMIN STAT CARDS ─────────────────────────────────────────────── -->
+  <div class="ll-stat-grid" *ngIf="isAdmin()">
+    <div class="ll-stat-card ll-anim-enter">
+      <div class="ll-stat-card__icon ll-stat-card__icon--red">
+        <mat-icon>people</mat-icon>
+      </div>
+      <div class="ll-stat-card__body">
+        <span class="ll-stat-card__label">Total Donors</span>
+        <span class="ll-stat-card__value">{{ totalDonors }}</span>
+        <span class="ll-stat-card__sub">Registered</span>
+      </div>
+    </div>
+
+    <div class="ll-stat-card ll-anim-enter" style="animation-delay:60ms">
+      <div class="ll-stat-card__icon ll-stat-card__icon--blue">
+        <mat-icon>healing</mat-icon>
+      </div>
+      <div class="ll-stat-card__body">
+        <span class="ll-stat-card__label">Total Requests</span>
+        <span class="ll-stat-card__value">{{ totalRequests }}</span>
+        <span class="ll-stat-card__sub">All time</span>
+      </div>
+    </div>
+
+    <div class="ll-stat-card ll-anim-enter" style="animation-delay:120ms">
+      <div class="ll-stat-card__icon ll-stat-card__icon--yellow">
+        <mat-icon>pending_actions</mat-icon>
+      </div>
+      <div class="ll-stat-card__body">
+        <span class="ll-stat-card__label">Pending</span>
+        <span class="ll-stat-card__value">{{ pendingRequests }}</span>
+        <span class="ll-stat-card__sub">Awaiting review</span>
+      </div>
+    </div>
+
+    <div class="ll-stat-card ll-anim-enter" style="animation-delay:180ms">
+      <div class="ll-stat-card__icon ll-stat-card__icon--green">
+        <mat-icon>water_drop</mat-icon>
+      </div>
+      <div class="ll-stat-card__body">
+        <span class="ll-stat-card__label">Active Stock</span>
+        <span class="ll-stat-card__value">{{ bloodTypesAvailable }}<span class="stat-of">/8</span></span>
+        <span class="ll-stat-card__sub">Blood types available</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DONOR STAT CARDS ─────────────────────────────────────────────── -->
+  <div class="ll-stat-grid stat-grid--2" *ngIf="!isAdmin()">
+    <div class="ll-stat-card ll-anim-enter">
+      <div class="ll-stat-card__icon ll-stat-card__icon--red">
+        <mat-icon>favorite</mat-icon>
+      </div>
+      <div class="ll-stat-card__body">
+        <span class="ll-stat-card__label">My Profile</span>
+        <span class="ll-stat-card__value" style="color: var(--success); font-size:22px; padding-top:4px;">Active</span>
+        <span class="ll-stat-card__sub">Donor status</span>
+      </div>
+    </div>
+
+    <div class="ll-stat-card ll-anim-enter" style="animation-delay:60ms">
+      <div class="ll-stat-card__icon ll-stat-card__icon--green">
+        <mat-icon>water_drop</mat-icon>
+      </div>
+      <div class="ll-stat-card__body">
+        <span class="ll-stat-card__label">Available Stock</span>
+        <span class="ll-stat-card__value">{{ bloodTypesAvailable }}<span class="stat-of">/8</span></span>
+        <span class="ll-stat-card__sub">Blood types in stock</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── INVENTORY OVERVIEW TABLE ─────────────────────────────────────── -->
+  <div class="dash-card ll-anim-enter--delayed">
+    <div class="dash-card__header">
+      <div>
+        <h2>Blood Inventory Overview</h2>
+        <p>Current units across all blood groups</p>
+      </div>
+      <a class="ll-btn-primary" *ngIf="isAdmin()" routerLink="/inventory">
+        <mat-icon>edit</mat-icon>
+        Manage Stock
+      </a>
+    </div>
+
+    <div class="ll-table-wrap">
+      <table mat-table [dataSource]="inventoryList" class="w-full">
+        <ng-container matColumnDef="bloodGroup">
+          <th mat-header-cell *matHeaderCellDef>Blood Group</th>
+          <td mat-cell *matCellDef="let item">
+            <span class="blood-badge">{{ item.bloodGroup.replace('_POS', '+').replace('_NEG', '-') }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unitsAvailable">
+          <th mat-header-cell *matHeaderCellDef>Units Available</th>
+          <td mat-cell *matCellDef="let item">
+            <span class="units-val">{{ item.unitsAvailable }}</span>
+            <span class="units-label">units</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let item">
+            <app-status-chip [status]="getStockStatusLabel(item.unitsAvailable)"></app-status-chip>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <div *ngIf="inventoryList.length === 0" class="ll-empty-state">
+        <div class="ll-empty-state__icon"><mat-icon>water_drop</mat-icon></div>
+        <h3>No inventory data</h3>
+        <p>Blood inventory records will appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="dash-quick-actions ll-anim-enter--delayed">
+    <h3>Quick Actions</h3>
+    <div class="quick-actions-grid">
+      <a class="quick-action" routerLink="/requests">
+        <div class="quick-action__icon" style="background:var(--redLight)">
+          <mat-icon style="color:var(--red)">add_circle</mat-icon>
+        </div>
+        <span>New Request</span>
+      </a>
+      <a class="quick-action" routerLink="/inventory">
+        <div class="quick-action__icon" style="background:var(--successLight)">
+          <mat-icon style="color:var(--success)">water_drop</mat-icon>
+        </div>
+        <span>View Stock</span>
+      </a>
+      <a class="quick-action" *ngIf="isAdmin()" routerLink="/donations">
+        <div class="quick-action__icon" style="background:var(--warningLight)">
+          <mat-icon style="color:var(--warning)">favorite</mat-icon>
+        </div>
+        <span>Log Donation</span>
+      </a>
+      <a class="quick-action" *ngIf="isAdmin()" routerLink="/donors">
+        <div class="quick-action__icon" style="background:#EFF6FF">
+          <mat-icon style="color:#3B82F6">people</mat-icon>
+        </div>
+        <span>Manage Donors</span>
+      </a>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,8 @@
+.app-page-wrap {
+  min-height: 100vh;
+
+  &--inner {
+    background: var(--bgSoft);
+    min-height: calc(100vh - 64px);
+  }
+}

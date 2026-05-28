@@ -1,0 +1,82 @@
+<nav class="ll-nav" [class.ll-nav--scrolled]="scrolled" *ngIf="isLoggedIn()">
+  <div class="ll-nav__inner">
+    <a class="ll-nav__brand" routerLink="/dashboard" (click)="closeMobile()">
+      <span class="ll-nav__brand-dot"></span>
+      <span class="ll-nav__brand-name">LifeLink</span>
+    </a>
+
+    <div class="ll-nav__links">
+      <a class="ll-nav__link" routerLink="/dashboard" routerLinkActive="ll-nav__link--active" (click)="closeMobile()">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a class="ll-nav__link" *ngIf="isAdmin()" routerLink="/donors" routerLinkActive="ll-nav__link--active" (click)="closeMobile()">
+        <mat-icon>people</mat-icon>
+        Donors
+      </a>
+      <a class="ll-nav__link" routerLink="/inventory" routerLinkActive="ll-nav__link--active" (click)="closeMobile()">
+        <mat-icon>water_drop</mat-icon>
+        Inventory
+      </a>
+      <a class="ll-nav__link" routerLink="/requests" routerLinkActive="ll-nav__link--active" (click)="closeMobile()">
+        <mat-icon>healing</mat-icon>
+        Requests
+      </a>
+      <a class="ll-nav__link" routerLink="/donations" routerLinkActive="ll-nav__link--active" (click)="closeMobile()">
+        <mat-icon>favorite</mat-icon>
+        Donations
+      </a>
+    </div>
+
+    <div class="ll-nav__right">
+      <app-theme-toggle></app-theme-toggle>
+      <div class="ll-nav__user">
+        <div class="ll-nav__avatar">{{ getUserInitials() }}</div>
+        <div class="ll-nav__user-details">
+          <span class="ll-nav__username">{{ getUserName() }}</span>
+          <span class="ll-nav__role">{{ isAdmin() ? 'Administrator' : 'Donor' }}</span>
+        </div>
+      </div>
+      <button class="ll-nav__logout" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </div>
+
+    <button class="ll-nav__hamburger" (click)="toggleMobile()" aria-label="Toggle menu">
+      <mat-icon>{{ mobileOpen ? 'close' : 'menu' }}</mat-icon>
+    </button>
+  </div>
+
+  <div class="ll-nav__mobile" [class.ll-nav__mobile--open]="mobileOpen">
+    <div class="ll-nav__mobile-user">
+      <div class="ll-nav__avatar ll-nav__avatar--lg">{{ getUserInitials() }}</div>
+      <div>
+        <div class="ll-nav__username">{{ getUserName() }}</div>
+        <div class="ll-nav__role">{{ isAdmin() ? 'Administrator' : 'Donor' }}</div>
+      </div>
+      <div style="margin-left:auto">
+        <app-theme-toggle></app-theme-toggle>
+      </div>
+    </div>
+    <a class="ll-nav__mobile-link" routerLink="/dashboard" routerLinkActive="ll-nav__mobile-link--active" (click)="closeMobile()">
+      <mat-icon>dashboard</mat-icon> Dashboard
+    </a>
+    <a class="ll-nav__mobile-link" *ngIf="isAdmin()" routerLink="/donors" routerLinkActive="ll-nav__mobile-link--active" (click)="closeMobile()">
+      <mat-icon>people</mat-icon> Donors
+    </a>
+    <a class="ll-nav__mobile-link" routerLink="/inventory" routerLinkActive="ll-nav__mobile-link--active" (click)="closeMobile()">
+      <mat-icon>water_drop</mat-icon> Inventory
+    </a>
+    <a class="ll-nav__mobile-link" routerLink="/requests" routerLinkActive="ll-nav__mobile-link--active" (click)="closeMobile()">
+      <mat-icon>healing</mat-icon> Requests
+    </a>
+    <a class="ll-nav__mobile-link" routerLink="/donations" routerLinkActive="ll-nav__mobile-link--active" (click)="closeMobile()">
+      <mat-icon>favorite</mat-icon> Donations
+    </a>
+    <button class="ll-nav__mobile-logout" (click)="logout()">
+      <mat-icon>logout</mat-icon> Sign Out
+    </button>
+  </div>
+</nav>
+<div class="ll-nav__spacer" *ngIf="isLoggedIn()"></div>

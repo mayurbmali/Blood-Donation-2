@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LifeLink — Blood Donation Management</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Apply theme immediately to prevent flash -->
+  <script>
+    (function() {
+      var stored = localStorage.getItem('app-theme');
+      var theme = (stored === 'light' || stored === 'dark') ? stored
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <style>
+    /* ── Theme tokens ─────────────────────────────────────────────────── */
+    #ll-loader {
+      --ld-bg:         #F1F5F9;
+      --ld-text:       #64748B;
+      --ld-sub:        #94A3B8;
+      --ld-name:       #1E293B;
+      --ld-bar-track:  rgba(15,23,42,0.08);
+      --ld-drop-rim:   rgba(220,20,30,0.20);
+    }
+    [data-theme="dark"] #ll-loader {
+      --ld-bg:         #0F172A;
+      --ld-text:       #94A3B8;
+      --ld-sub:        #475569;
+      --ld-name:       #F1F5F9;
+      --ld-bar-track:  rgba(241,245,249,0.08);
+      --ld-drop-rim:   rgba(220,20,30,0.30);
+    }
+
+    /* ── Overlay ──────────────────────────────────────────────────────── */
+    #ll-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--ld-bg);
+      gap: 32px;
+      overflow: hidden;
+    }
+    #ll-loader.ll-loader--out {
+      animation: loaderOut 0.45s cubic-bezier(0.4,0,0.6,1) forwards;
+    }
+    @keyframes loaderOut {
+      to { opacity: 0; transform: scale(0.97); }
+    }
+
+    /* ── Body scroll lock ─────────────────────────────────────────────── */
+    body.ll-loading { overflow: hidden; }
+
+    /* ── Ambient glow blob ────────────────────────────────────────────── */
+    .ll-glow {
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(225,29,46,0.12) 0%, transparent 68%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      filter: blur(32px);
+      pointer-events: none;
+      animation: glowPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1);   }
+      50%      { opacity: 1.0; transform: translate(-50%,-55%) scale(1.18); }
+    }
+
+    /* ── Drop container ───────────────────────────────────────────────── */
+    .ll-drop-wrap {
+      position: relative;
+      width: 110px;
+      height: 148px;
+      animation: dropEntrance 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes dropEntrance {
+      from { opacity:0; transform: scale(0.6) translateY(20px); }
+      to   { opacity:1; transform: scale(1)   translateY(0);    }
+    }
+
+    .ll-drop-svg { width: 100%; height: 100%; overflow: visible; }
+
+    /* ── Drop outline draw-on ─────────────────────────────────────────── */
+    .drop-outline {
+      stroke-dasharray: 450;
+      stroke-dashoffset: 450;
+      animation: drawOutline 0.7s ease 0.1s forwards;
+    }
+    @keyframes drawOutline {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       BLOOD WAVE FILL — CSS `d` property animation
+       Drop viewBox: 0 0 100 130
+       Wave uses 6 cubic bezier segments spanning x = -10 to 110
+    ─────────────────────────────────────────────────────────────────────── */
+    .wave-fill {
+      animation: waveRise 3.2s cubic-bezier(0.25,0.1,0.25,1) 0.5s both;
+    }
+    .wave-foam {
+      animation: waveRiseFoam 3.2s cubic-bezier(0.25,0.1,0.25,1) 0.5s both;
+      opacity: 0;
+      animation: waveRiseFoam 3.2s ease 0.5s both;
+    }
+
+    /* Main fill wave — rises from bottom to top with dramatic sloshing */
+    @keyframes waveRise {
+      0%   { d: path("M -10,132 C -4,132 4,132 10,132 C 16,132 24,132 30,132 C 36,132 44,132 50,132 C 56,132 64,132 70,132 C 76,132 84,132 90,132 C 96,132 104,132 110,132 L 110,133 L -10,133 Z"); opacity:0.5; }
+      6%   { d: path("M -10,118 C -4,112 4,124 10,118 C 16,112 24,124 30,118 C 36,112 44,124 50,118 C 56,112 64,124 70,118 C 76,112 84,124 90,118 C 96,112 104,124 110,118 L 110,133 L -10,133 Z"); opacity:1; }
+      16%  { d: path("M -10,103 C -4,96 4,110 10,103 C 16,96 24,110 30,103 C 36,96 44,110 50,103 C 56,96 64,110 70,103 C 76,96 84,110 90,103 C 96,96 104,110 110,103 L 110,133 L -10,133 Z"); }
+      26%  { d: path("M -10,85 C -4,77 4,93 10,85 C 16,77 24,93 30,85 C 36,77 44,93 50,85 C 56,77 64,93 70,85 C 76,77 84,93 90,85 C 96,77 104,93 110,85 L 110,133 L -10,133 Z"); }
+      36%  { d: path("M -10,68 C -4,60 4,76 10,68 C 16,60 24,76 30,68 C 36,60 44,76 50,68 C 56,60 64,76 70,68 C 76,60 84,76 90,68 C 96,60 104,76 110,68 L 110,133 L -10,133 Z"); }
+      46%  { d: path("M -10,52 C -4,44 4,60 10,52 C 16,44 24,60 30,52 C 36,44 44,60 50,52 C 56,44 64,60 70,52 C 76,44 84,60 90,52 C 96,44 104,60 110,52 L 110,133 L -10,133 Z"); }
+      55%  { d: path("M -10,39 C -4,31 4,47 10,39 C 16,31 24,47 30,39 C 36,31 44,47 50,39 C 56,31 64,47 70,39 C 76,31 84,47 90,39 C 96,31 104,47 110,39 L 110,133 L -10,133 Z"); }
+      63%  { d: path("M -10,29 C -4,21 4,37 10,29 C 16,21 24,37 30,29 C 36,21 44,37 50,29 C 56,21 64,37 70,29 C 76,21 84,37 90,29 C 96,21 104,37 110,29 L 110,133 L -10,133 Z"); }
+      70%  { d: path("M -10,24 C -4,16 4,32 10,24 C 16,16 24,32 30,24 C 36,16 44,32 50,24 C 56,16 64,32 70,24 C 76,16 84,32 90,24 C 96,16 104,32 110,24 L 110,133 L -10,133 Z"); }
+      /* slosh up past target */
+      76%  { d: path("M -10,20 C -4,12 4,28 10,20 C 16,12 24,28 30,20 C 36,12 44,28 50,20 C 56,12 64,28 70,20 C 76,12 84,28 90,20 C 96,12 104,28 110,20 L 110,133 L -10,133 Z"); }
+      /* slosh down — dramatic river wave effect */
+      82%  { d: path("M -10,26 C -4,19 4,33 10,26 C 16,19 24,33 30,26 C 36,19 44,33 50,26 C 56,19 64,33 70,26 C 76,19 84,33 90,26 C 96,19 104,33 110,26 L 110,133 L -10,133 Z"); }
+      88%  { d: path("M -10,22 C -4,17 4,27 10,22 C 16,17 24,27 30,22 C 36,17 44,27 50,22 C 56,17 64,27 70,22 C 76,17 84,27 90,22 C 96,17 104,27 110,22 L 110,133 L -10,133 Z"); }
+      /* final gentle settle */
+      94%  { d: path("M -10,23 C -4,19 4,27 10,23 C 16,19 24,27 30,23 C 36,19 44,27 50,23 C 56,19 64,27 70,23 C 76,19 84,27 90,23 C 96,19 104,27 110,23 L 110,133 L -10,133 Z"); }
+      100% { d: path("M -10,22 C -4,19 4,25 10,22 C 16,19 24,25 30,22 C 36,19 44,25 50,22 C 56,19 64,25 70,22 C 76,19 84,25 90,22 C 96,19 104,25 110,22 L 110,133 L -10,133 Z"); }
+    }
+
+    /* Foam layer — offset phase, lighter, slightly above main wave */
+    @keyframes waveRiseFoam {
+      0%   { d: path("M -10,132 C -4,132 4,132 10,132 C 16,132 24,132 30,132 C 36,132 44,132 50,132 C 56,132 64,132 70,132 C 76,132 84,132 90,132 C 96,132 104,132 110,132 L 110,133 L -10,133 Z"); opacity:0; }
+      6%   { d: path("M -10,116 C -4,122 4,110 10,116 C 16,122 24,110 30,116 C 36,122 44,110 50,116 C 56,122 64,110 70,116 C 76,122 84,110 90,116 C 96,122 104,110 110,116 L 110,133 L -10,133 Z"); opacity:0.6; }
+      16%  { d: path("M -10,101 C -4,108 4,94 10,101 C 16,108 24,94 30,101 C 36,108 44,94 50,101 C 56,108 64,94 70,101 C 76,108 84,94 90,101 C 96,108 104,94 110,101 L 110,133 L -10,133 Z"); opacity:0.7; }
+      26%  { d: path("M -10,83 C -4,91 4,75 10,83 C 16,91 24,75 30,83 C 36,91 44,75 50,83 C 56,91 64,75 70,83 C 76,91 84,75 90,83 C 96,91 104,75 110,83 L 110,133 L -10,133 Z"); opacity:0.7; }
+      36%  { d: path("M -10,66 C -4,74 4,58 10,66 C 16,74 24,58 30,66 C 36,74 44,58 50,66 C 56,74 64,58 70,66 C 76,74 84,58 90,66 C 96,74 104,58 110,66 L 110,133 L -10,133 Z"); opacity:0.7; }
+      46%  { d: path("M -10,50 C -4,58 4,42 10,50 C 16,58 24,42 30,50 C 36,58 44,42 50,50 C 56,58 64,42 70,50 C 76,58 84,42 90,50 C 96,58 104,42 110,50 L 110,133 L -10,133 Z"); opacity:0.7; }
+      55%  { d: path("M -10,37 C -4,45 4,29 10,37 C 16,45 24,29 30,37 C 36,45 44,29 50,37 C 56,45 64,29 70,37 C 76,45 84,29 90,37 C 96,45 104,29 110,37 L 110,133 L -10,133 Z"); opacity:0.6; }
+      63%  { d: path("M -10,27 C -4,35 4,19 10,27 C 16,35 24,19 30,27 C 36,35 44,19 50,27 C 56,35 64,19 70,27 C 76,35 84,19 90,27 C 96,35 104,19 110,27 L 110,133 L -10,133 Z"); opacity:0.55; }
+      70%  { d: path("M -10,22 C -4,30 4,14 10,22 C 16,30 24,14 30,22 C 36,30 44,14 50,22 C 56,30 64,14 70,22 C 76,30 84,14 90,22 C 96,30 104,14 110,22 L 110,133 L -10,133 Z"); opacity:0.5; }
+      76%  { d: path("M -10,18 C -4,26 4,10 10,18 C 16,26 24,10 30,18 C 36,26 44,10 50,18 C 56,26 64,10 70,18 C 76,26 84,10 90,18 C 96,26 104,10 110,18 L 110,133 L -10,133 Z"); opacity:0.45; }
+      88%  { d: path("M -10,20 C -4,25 4,15 10,20 C 16,25 24,15 30,20 C 36,25 44,15 50,20 C 56,25 64,15 70,20 C 76,25 84,15 90,20 C 96,25 104,15 110,20 L 110,133 L -10,133 Z"); opacity:0.4; }
+      100% { d: path("M -10,20 C -4,24 4,16 10,20 C 16,24 24,16 30,20 C 36,24 44,16 50,20 C 56,24 64,16 70,20 C 76,24 84,16 90,20 C 96,24 104,16 110,20 L 110,133 L -10,133 Z"); opacity:0.35; }
+    }
+
+    /* ── Inner highlight teardrop ─────────────────────────────────────── */
+    .drop-inner-shine {
+      animation: shineReveal 0.8s ease 1.8s both;
+    }
+    @keyframes shineReveal {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── ECG heartbeat inside drop ────────────────────────────────────── */
+    .drop-ecg {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawEcg 0.7s ease 2.4s forwards;
+    }
+    @keyframes drawEcg {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ── Bottom text block ────────────────────────────────────────────── */
+    .ll-loader-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      animation: fadeUp 0.5s ease 0.3s both;
+    }
+    .ll-loader-name {
+      font-family: 'Sora', system-ui, sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--ld-name);
+      line-height: 1;
+    }
+    .ll-loader-name em {
+      color: #E11D2E;
+      font-style: normal;
+    }
+    .ll-loader-tagline {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ld-sub);
+      letter-spacing: 0.4px;
+    }
+
+    /* ── Progress bar ─────────────────────────────────────────────────── */
+    .ll-loader-bar {
+      width: 110px;
+      height: 3px;
+      background: var(--ld-bar-track);
+      border-radius: 99px;
+      overflow: hidden;
+      animation: fadeUp 0.4s ease 0.5s both;
+    }
+    .ll-loader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #8B0000, #E11D2E);
+      border-radius: 99px;
+      animation: barGrow 3.2s cubic-bezier(0.25,0.1,0.25,1) 0.5s both;
+      transform-origin: left;
+    }
+    @keyframes barGrow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(8px); }
+      to   { opacity:1; transform: translateY(0);   }
+    }
+
+    /* ── Reduced motion fallback ──────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .wave-fill, .wave-foam, .drop-outline, .drop-ecg,
+      .ll-loader-label, .ll-loader-bar, .ll-glow, .ll-drop-wrap {
+        animation: none !important;
+      }
+      .drop-outline       { stroke-dashoffset: 0; }
+      .wave-fill          { d: path("M -10,22 C -4,19 4,25 10,22 C 16,19 24,25 30,22 C 36,19 44,25 50,22 C 56,19 64,25 70,22 C 76,19 84,25 90,22 C 96,19 104,25 110,22 L 110,133 L -10,133 Z"); }
+      .drop-ecg           { stroke-dashoffset: 0; }
+      .ll-loader-label, .ll-loader-bar { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body class="ll-loading">
+
+  <!-- ════════════════════════════════════════════════════
+       LIFELINK PREMIUM LOADER — blood wave fill animation
+       Removed by AppComponent on first NavigationEnd
+  ════════════════════════════════════════════════════ -->
+  <div id="ll-loader" role="status" aria-label="Loading LifeLink">
+
+    <!-- Ambient glow behind drop -->
+    <div class="ll-glow"></div>
+
+    <!-- Blood drop SVG -->
+    <div class="ll-drop-wrap">
+      <svg class="ll-drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Blood fill gradient — dark at bottom, brighter at top waterline -->
+          <linearGradient id="bloodGrad" x1="50" y1="133" x2="50" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#7A0010"/>
+            <stop offset="40%"  stop-color="#C01020"/>
+            <stop offset="100%" stop-color="#E83545"/>
+          </linearGradient>
+
+          <!-- Foam layer gradient (translucent lighter red) -->
+          <linearGradient id="foamGrad" x1="50" y1="133" x2="50" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#E11D2E" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#FF6070" stop-opacity="0.5"/>
+          </linearGradient>
+
+          <!-- Clip path = drop shape -->
+          <clipPath id="dropClip">
+            <path d="M50 6 C50 6 8 56 8 83 C8 109 27 126 50 126 C73 126 92 109 92 83 C92 56 50 6 50 6 Z"/>
+          </clipPath>
+        </defs>
+
+        <!-- Drop outline (draws itself in) -->
+        <path class="drop-outline"
+          d="M50 6 C50 6 8 56 8 83 C8 109 27 126 50 126 C73 126 92 109 92 83 C92 56 50 6 50 6 Z"
+          fill="none"
+          stroke="rgba(220,30,40,0.22)"
+          stroke-width="1.8"
+          stroke-linecap="round"/>
+
+        <!-- ── WAVE LIQUID FILL — clipped to drop ── -->
+        <g clip-path="url(#dropClip)">
+
+          <!-- Main blood fill wave -->
+          <path class="wave-fill" fill="url(#bloodGrad)"/>
+
+          <!-- Foam / surface highlight wave (opposite phase) -->
+          <path class="wave-foam" fill="url(#foamGrad)"/>
+
+          <!-- Inner shine teardrop (appears once drop is ~full) -->
+          <path class="drop-inner-shine"
+            d="M50 34 C50 34 35 53 35 67 C35 79 42 87 50 87 C58 87 65 79 65 67 C65 53 50 34 50 34 Z"
+            fill="rgba(255,255,255,0.10)"/>
+
+          <!-- ECG heartbeat line (appears near end) -->
+          <polyline class="drop-ecg"
+            points="12,82 22,82 28,66 35,96 42,52 50,100 57,82 68,82 74,70 80,90 88,82"
+            fill="none"
+            stroke="rgba(255,255,255,0.80)"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Brand label -->
+    <div class="ll-loader-label" aria-hidden="true">
+      <div class="ll-loader-name">Life<em>Link</em></div>
+      <div class="ll-loader-tagline">Preparing to save lives…</div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="ll-loader-bar">
+      <div class="ll-loader-bar-fill"></div>
+    </div>
+
+  </div>
+
+  <app-root></app-root>
+
+</body>
+</html>

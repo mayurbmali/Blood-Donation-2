@@ -1,0 +1,58 @@
+<div class="ll-container ll-anim-enter">
+
+  <div class="ll-page-header">
+    <div class="ll-page-header__text">
+      <h1>Blood Stock Inventory</h1>
+      <p>View {{ isAdmin() ? 'and update' : '' }} current unit levels across all blood groups.</p>
+    </div>
+  </div>
+
+  <div class="inventory-grid">
+    <div class="inv-card" *ngFor="let item of inventoryList; let i = index"
+         [class.inv-card--critical]="item.unitsAvailable === 0"
+         [class.inv-card--low]="item.unitsAvailable > 0 && item.unitsAvailable < 5"
+         [style.animation-delay]="(i * 40) + 'ms'">
+
+      <div class="inv-card__header">
+        <span class="inv-blood-group">{{ item.bloodGroup.replace('_POS', '+').replace('_NEG', '-') }}</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <app-status-chip [status]="getStockStatusLabel(item.unitsAvailable)"></app-status-chip>
+          <button class="ll-btn-icon ll-btn-icon--primary"
+                  *ngIf="isAdmin() && editingGroupId !== item.id"
+                  (click)="startEdit(item)"
+                  title="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- View Mode -->
+      <div class="inv-card__body" *ngIf="editingGroupId !== item.id">
+        <span class="inv-units">{{ item.unitsAvailable }}</span>
+        <span class="inv-units-label">units available</span>
+        <div class="inv-bar">
+          <div class="inv-bar__fill"
+               [style.width]="getBarWidth(item.unitsAvailable)"
+               [class.inv-bar__fill--ok]="item.unitsAvailable >= 5"
+               [class.inv-bar__fill--low]="item.unitsAvailable > 0 && item.unitsAvailable < 5"
+               [class.inv-bar__fill--critical]="item.unitsAvailable === 0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <div class="inv-card__edit" *ngIf="editingGroupId === item.id">
+        <mat-form-field appearance="outline" class="inv-edit-field">
+          <mat-label>Units</mat-label>
+          <input matInput type="number" [(ngModel)]="editUnitsValue" min="0" required>
+        </mat-form-field>
+        <div class="inv-edit-actions">
+          <button class="ll-btn-primary inv-save-btn" (click)="saveEdit(item)">Save</button>
+          <button class="ll-btn-ghost inv-cancel-btn" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

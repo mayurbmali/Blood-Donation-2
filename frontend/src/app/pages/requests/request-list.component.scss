@@ -1,0 +1,111 @@
+.req-card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  overflow: hidden;
+}
+
+.blood-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 10px;
+  background: var(--redLight);
+  color: var(--red);
+  border-radius: var(--radiusFull);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.requester-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.requester-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bgSubtle);
+  color: var(--textMuted);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid var(--border);
+}
+
+.units-val {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.units-label {
+  font-size: 12px;
+  color: var(--textMuted);
+  margin-left: 3px;
+}
+
+.date-val {
+  font-size: 13px;
+  color: var(--textMuted);
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: var(--radiusFull);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: all var(--transBase);
+  font-family: inherit;
+  white-space: nowrap;
+
+  mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  &--approve {
+    background: var(--successLight);
+    color: var(--success);
+
+    &:hover {
+      background: #A7F3D0;
+    }
+  }
+
+  &--reject {
+    background: var(--dangerLight);
+    color: var(--danger);
+
+    &:hover {
+      background: #FCA5A5;
+    }
+  }
+}
+
+.no-requests-card {
+  background: var(--bg);
+  border-radius: var(--radiusLg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadowMd);
+  max-width: 560px;
+}

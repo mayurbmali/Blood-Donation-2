@@ -1,0 +1,150 @@
+<div class="ll-container ll-anim-enter">
+
+  <!-- ADMIN VIEW ─────────────────────────────────────────────────────────── -->
+  <div *ngIf="isAdmin()">
+    <div class="ll-page-header">
+      <div class="ll-page-header__text">
+        <h1>Donors</h1>
+        <p>Manage blood bank donor records.</p>
+      </div>
+      <button class="ll-btn-primary" (click)="openAddDialog()">
+        <mat-icon>person_add</mat-icon>
+        Add Donor
+      </button>
+    </div>
+
+    <!-- Command Bar -->
+    <div class="ll-command-bar">
+      <div class="ll-search-bar" style="max-width:340px; flex:1">
+        <mat-icon>search</mat-icon>
+        <input (keyup)="applyFilter($event)" placeholder="Search by name or phone…">
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="donors-card">
+      <div class="ll-table-wrap">
+        <table mat-table [dataSource]="filteredDonors" class="w-full">
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Donor</th>
+            <td mat-cell *matCellDef="let el">
+              <div class="donor-cell">
+                <div class="donor-avatar">{{ el.user.name.charAt(0).toUpperCase() }}</div>
+                <div class="donor-info">
+                  <span class="donor-name">{{ el.user.name }}</span>
+                  <span class="donor-email">{{ el.user.email }}</span>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="bloodGroup">
+            <th mat-header-cell *matHeaderCellDef>Blood Group</th>
+            <td mat-cell *matCellDef="let el">
+              <span class="blood-pill">{{ el.bloodGroup.replace('_POS', '+').replace('_NEG', '-') }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef>Age</th>
+            <td mat-cell *matCellDef="let el">{{ el.age }} yrs</td>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let el">{{ el.phone }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastDonation">
+            <th mat-header-cell *matHeaderCellDef>Last Donation</th>
+            <td mat-cell *matCellDef="let el">
+              <span *ngIf="el.lastDonationDate" class="date-val">{{ el.lastDonationDate | date:'mediumDate' }}</span>
+              <span *ngIf="!el.lastDonationDate" class="no-record">—</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef style="text-align:right">Actions</th>
+            <td mat-cell *matCellDef="let el" style="text-align:right">
+              <div class="row-actions">
+                <button class="ll-btn-icon ll-btn-icon--primary" (click)="openEditDialog(el)" title="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="ll-btn-icon ll-btn-icon--danger" (click)="deleteDonor(el)" title="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+      <div *ngIf="filteredDonors.length === 0" class="ll-empty-state">
+        <div class="ll-empty-state__icon"><mat-icon>people</mat-icon></div>
+        <h3>No donors found</h3>
+        <p>Try adjusting your search, or add a new donor using the button above.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DONOR PROFILE VIEW ─────────────────────────────────────────────────── -->
+  <div *ngIf="!isAdmin()">
+    <div class="ll-page-header">
+      <div class="ll-page-header__text">
+        <h1>My Donor Profile</h1>
+        <p>Your personal donor information and record.</p>
+      </div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card" *ngIf="donorProfile">
+      <div class="profile-card__hero">
+        <div class="profile-avatar-lg">{{ donorProfile.user.name.charAt(0).toUpperCase() }}</div>
+        <div class="profile-hero-info">
+          <h2>{{ donorProfile.user.name }}</h2>
+          <p>{{ donorProfile.user.email }}</p>
+          <span class="donor-role-badge">Active Donor</span>
+        </div>
+      </div>
+
+      <div class="profile-divider"></div>
+
+      <div class="profile-details">
+        <div class="profile-detail">
+          <span class="detail-label">Blood Group</span>
+          <span class="detail-value detail-value--blood">{{ donorProfile.bloodGroup.replace('_POS', '+').replace('_NEG', '-') }}</span>
+        </div>
+        <div class="profile-detail">
+          <span class="detail-label">Age</span>
+          <span class="detail-value">{{ donorProfile.age }} years</span>
+        </div>
+        <div class="profile-detail">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value">{{ donorProfile.phone }}</span>
+        </div>
+        <div class="profile-detail">
+          <span class="detail-label">Last Donation</span>
+          <span class="detail-value">{{ donorProfile.lastDonationDate ? (donorProfile.lastDonationDate | date:'mediumDate') : 'No donations yet' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Profile -->
+    <div class="no-profile-card" *ngIf="!donorProfile">
+      <div class="ll-empty-state">
+        <div class="ll-empty-state__icon"><mat-icon>person_off</mat-icon></div>
+        <h3>No profile yet</h3>
+        <p>You don't have a donor profile yet. Create one now to register as a blood donor and help save lives.</p>
+        <button class="ll-btn-primary" (click)="openSelfCreateDialog()">
+          <mat-icon>add</mat-icon>
+          Create My Profile
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

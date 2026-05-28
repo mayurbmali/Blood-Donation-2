@@ -1,0 +1,84 @@
+:root {
+  --red: #E11D2E;
+  --redDark: #B3121F;
+  --redLight: #FEE2E2;
+  --redGlow: rgba(225, 29, 46, 0.12);
+  --redGlowStrong: rgba(225, 29, 46, 0.22);
+
+  --bg: #FFFFFF;
+  --bgSoft: #F8FAFC;
+  --bgSubtle: #F1F5F9;
+
+  --text: #0F172A;
+  --textMuted: #64748B;
+  --textLight: #94A3B8;
+
+  --border: rgba(15, 23, 42, 0.08);
+  --borderMd: rgba(15, 23, 42, 0.12);
+  --borderFocus: rgba(225, 29, 46, 0.45);
+
+  --success: #059669;
+  --successLight: #D1FAE5;
+  --successMid: #34D399;
+  --warning: #D97706;
+  --warningLight: #FEF3C7;
+  --danger: #DC2626;
+  --dangerLight: #FEE2E2;
+  --info: #3B82F6;
+  --infoLight: #EFF6FF;
+
+  --shadowSm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadowMd: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadowLg: 0 12px 40px rgba(15, 23, 42, 0.11), 0 4px 14px rgba(15, 23, 42, 0.06);
+  --shadowRed: 0 6px 20px rgba(225, 29, 46, 0.30);
+  --shadowRedSm: 0 2px 10px rgba(225, 29, 46, 0.20);
+
+  --radiusSm: 10px;
+  --radiusMd: 14px;
+  --radiusLg: 20px;
+  --radiusXl: 28px;
+  --radiusFull: 9999px;
+
+  --sp1: 8px;
+  --sp2: 12px;
+  --sp3: 16px;
+  --sp4: 24px;
+  --sp5: 32px;
+  --sp6: 48px;
+  --sp7: 64px;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --easeOut: cubic-bezier(0, 0, 0.2, 1);
+  --transBase: 200ms var(--ease);
+  --transSlow: 350ms var(--ease);
+  --transFast: 120ms var(--ease);
+}
+
+[data-theme="dark"] {
+  --bg: #0F172A;
+  --bgSoft: #1E293B;
+  --bgSubtle: #334155;
+
+  --text: #F1F5F9;
+  --textMuted: #94A3B8;
+  --textLight: #64748B;
+
+  --border: rgba(241, 245, 249, 0.08);
+  --borderMd: rgba(241, 245, 249, 0.14);
+  --borderFocus: rgba(225, 29, 46, 0.55);
+
+  --redLight: rgba(225, 29, 46, 0.16);
+  --redGlow: rgba(225, 29, 46, 0.18);
+  --redGlowStrong: rgba(225, 29, 46, 0.30);
+
+  --successLight: rgba(5, 150, 105, 0.15);
+  --warningLight: rgba(217, 119, 6, 0.18);
+  --dangerLight: rgba(220, 38, 38, 0.15);
+  --infoLight: rgba(59, 130, 246, 0.15);
+
+  --shadowSm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadowMd: 0 4px 16px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadowLg: 0 12px 40px rgba(0, 0, 0, 0.55), 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadowRed: 0 6px 20px rgba(225, 29, 46, 0.40);
+  --shadowRedSm: 0 2px 10px rgba(225, 29, 46, 0.28);
+}

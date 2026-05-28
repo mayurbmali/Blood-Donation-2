@@ -1,0 +1,138 @@
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inv-card {
+  background: var(--bg);
+  border-radius: var(--radiusMd);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadowMd);
+  padding: 20px;
+  transition: box-shadow var(--transSlow), transform var(--transSlow), border-color 200ms ease, background-color 150ms ease;
+  animation: ll-fade-up 0.35s var(--easeOut) both;
+  cursor: default;
+
+  &:hover {
+    box-shadow: var(--shadowLg);
+    transform: translateY(-3px);
+  }
+
+  &--critical {
+    border-color: rgba(220, 38, 38, 0.3);
+    background: linear-gradient(135deg, var(--bg) 60%, var(--dangerLight));
+  }
+
+  &--low {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, var(--bg) 60%, var(--warningLight));
+  }
+}
+
+.inv-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.inv-blood-group {
+  font-size: 26px;
+  font-weight: 850;
+  color: var(--red);
+  letter-spacing: -0.5px;
+  line-height: 1;
+  font-family: 'Sora', sans-serif;
+}
+
+.inv-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.inv-units {
+  font-size: 44px;
+  font-weight: 850;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: -1px;
+  font-family: 'Sora', sans-serif;
+}
+
+.inv-units-label {
+  font-size: 12px;
+  color: var(--textMuted);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+// ── Progress bar ─────────────────────────────────────────────────────────────
+.inv-bar {
+  width: 100%;
+  height: 5px;
+  background: var(--bgSubtle);
+  border-radius: var(--radiusFull);
+  overflow: hidden;
+}
+
+.inv-bar__fill {
+  height: 100%;
+  border-radius: var(--radiusFull);
+  transition: width 600ms var(--easeOut);
+
+  &--ok { background: var(--success); }
+  &--low { background: var(--warning); }
+  &--critical { background: var(--danger); width: 100% !important; opacity: 0.5; }
+}
+
+// ── Edit mode ────────────────────────────────────────────────────────────────
+.inv-card__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.inv-edit-field {
+  width: 100%;
+
+  input {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.inv-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.inv-save-btn {
+  flex: 1;
+  justify-content: center;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.inv-cancel-btn {
+  flex: 1;
+  justify-content: center;
+  padding: 8px 16px;
+  font-size: 13px;
+}

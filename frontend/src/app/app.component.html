@@ -1,0 +1,4 @@
+<app-navbar *ngIf="showNavbar"></app-navbar>
+<div class="app-page-wrap" [class.app-page-wrap--inner]="showNavbar">
+  <router-outlet></router-outlet>
+</div>

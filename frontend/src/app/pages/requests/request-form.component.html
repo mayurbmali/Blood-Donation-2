@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Request Blood Units</h2>
+
+<form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form-content flex-col" style="padding-top: 10px;">
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Blood Group Needed</mat-label>
+      <mat-select formControlName="bloodGroup" required>
+        <mat-option *ngFor="let bg of bloodGroups" [value]="bg.value">{{ bg.label }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="requestForm.get('bloodGroup')?.hasError('required')">Blood Group is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Units Needed</mat-label>
+      <input matInput type="number" formControlName="units" min="1" required>
+      <mat-error *ngIf="requestForm.get('units')?.hasError('required')">Units is required</mat-error>
+      <mat-error *ngIf="requestForm.get('units')?.hasError('min')">Units must be at least 1</mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="requestForm.invalid" style="background-color: var(--primary); color: white;">
+      Submit Request
+    </button>
+  </mat-dialog-actions>
+</form>

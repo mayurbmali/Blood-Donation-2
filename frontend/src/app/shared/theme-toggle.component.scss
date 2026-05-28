@@ -1,0 +1,32 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--textMuted);
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  font-family: inherit;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    transition: transform 300ms ease;
+  }
+
+  &:hover {
+    background: var(--bgSubtle);
+    color: var(--text);
+    border-color: var(--borderMd);
+
+    mat-icon {
+      transform: rotate(20deg);
+    }
+  }
+}

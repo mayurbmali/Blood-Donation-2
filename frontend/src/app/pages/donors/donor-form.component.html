@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>
+  {{ isSelfMode ? 'Create My Donor Profile' : (isEditMode ? 'Edit Donor Profile' : 'Add New Donor') }}
+</h2>
+
+<form [formGroup]="donorForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form-content flex-col" style="padding-top: 10px;">
+
+    <!-- ── ADMIN CREATE MODE: User Account Fields ── -->
+    <ng-container *ngIf="isAdminAdd">
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Full Name*</mat-label>
+        <input matInput type="text" formControlName="name">
+        <mat-error *ngIf="donorForm.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email Address*</mat-label>
+        <input matInput type="email" formControlName="email" autocomplete="off">
+        <mat-error *ngIf="donorForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="donorForm.get('email')?.hasError('email')">Enter a valid email address</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password*</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" autocomplete="new-password">
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-hint>Minimum 6 characters</mat-hint>
+        <mat-error *ngIf="donorForm.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="donorForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+      </mat-form-field>
+
+      <mat-divider style="margin: 8px 0 16px 0;"></mat-divider>
+
+    </ng-container>
+
+    <!-- ── DONOR PROFILE FIELDS (all modes) ── -->
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Blood Group*</mat-label>
+      <mat-select formControlName="bloodGroup" required>
+        <mat-option *ngFor="let bg of bloodGroups" [value]="bg.value">{{ bg.label }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="donorForm.get('bloodGroup')?.hasError('required')">Blood Group is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Age* (18 – 65)</mat-label>
+      <input matInput type="number" formControlName="age" required>
+      <mat-error *ngIf="donorForm.get('age')?.hasError('required')">Age is required</mat-error>
+      <mat-error *ngIf="donorForm.get('age')?.hasError('min')">Age must be 18 or above</mat-error>
+      <mat-error *ngIf="donorForm.get('age')?.hasError('max')">Age must be 65 or under</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Phone Number*</mat-label>
+      <input matInput type="text" formControlName="phone" required>
+      <mat-error *ngIf="donorForm.get('phone')?.hasError('required')">Phone number is required</mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit"
+      [disabled]="donorForm.invalid"
+      style="background-color: var(--primary); color: white;">
+      {{ isSelfMode ? 'Create Profile' : (isEditMode ? 'Save Changes' : 'Create Donor') }}
+    </button>
+  </mat-dialog-actions>
+</form>
